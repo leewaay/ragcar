@@ -158,7 +158,7 @@ export OPENAI_API_KEY='sk-...'
 
 ## Acknowledgements 
 
-* [sentence-transformers](https://github.com/UKPLab/sentence-transformers)
+* [pororo](https://github.com/kakaobrain/pororo)
 ```bibtex 
 @misc{pororo,
   author       = {Heo, Hoon and Ko, Hyunwoong and Kim, Soohwan and
@@ -169,7 +169,7 @@ export OPENAI_API_KEY='sk-...'
 }
 ```
 
-* [pororo](https://github.com/kakaobrain/pororo)
+* [sentence-transformers](https://github.com/leewaay/ragcar/issues)
 ```bibtex 
 @inproceedings{reimers-2019-sentence-bert,
     title = "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
