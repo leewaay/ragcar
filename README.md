@@ -120,7 +120,7 @@ export OPENAI_API_KEY='sk-...'
 
 <br>
 
-### ⚠️ Clova & Clovax `src` 사용 시 주의사항
+### ⚠️ Clova `src` 사용 시 주의사항
 
 **text_generation** `tool`을 **clova** `src`와 함께 사용할 때, 공식 Parameter 대비 변경된 사항에 주의해야 합니다:
 
