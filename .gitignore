@@ -1,3 +1,6 @@
+dist
+build
+
 # Ignore .env files as they usually contain sensitive information
 .env
 

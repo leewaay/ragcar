@@ -1,6 +1,6 @@
 # RAGCAR: Retrieval-Augmented Generative Companion for Advanced Research
 
-RAGCAR🚛는 카카오브레인의 자연어 처리 라이브러리 [PORORO](https://github.com/kakaobrain/pororo)의 아키텍처를 기반으로 구축하여, 대규모 언어 모델(Large Language Models, LLM) OpenAI의 [GPT](https://github.com/openai/openai-python)와 NAVER의 [HyperCLOVA X](https://www.ncloud.com/product/aiService/clovaStudio) API 기능을 추가하고 RAG(Retrieval-Augmented Generation)에 필요한 도구들을 쉽게 사용할 수 있도록 지원합니다.
+RAGCAR🚛는 카카오브레인의 자연어 처리 라이브러리 [PORORO](https://github.com/kakaobrain/pororo) 아키텍처를 기반으로 구축하여, 대규모 언어 모델(Large Language Models, LLM) OpenAI의 [GPT](https://github.com/openai/openai-python)와 NAVER의 [HyperCLOVA X](https://www.ncloud.com/product/aiService/clovaStudio) API 기능을 추가하고 RAG(Retrieval-Augmented Generation)에 필요한 도구들을 쉽게 사용할 수 있도록 지원합니다.
 
 ## Installation
 
@@ -34,7 +34,7 @@ pip install -e .
 
 <br>
 
-- 임포트 이후에는, 다음 명령어를 통해 현재 `Ragcar` 에서 지원하고 있는 태스크를 확인하실 수 있습니다.
+- 임포트 이후에는, 다음 명령어를 통해 현재 `Ragcar` 에서 지원하고 있는 Task를 확인하실 수 있습니다.
 
 ```python
 >>> from ragcar import Ragcar
@@ -66,7 +66,7 @@ pip install -e .
 
 <br>
 
-- 객체 생성 이후에는, 다음과 같이 입력 값을 넘겨주는 방식으로 사용이 가능합니다. 자세한 사용방법은 examples를 참고해주세요.
+- 객체 생성 이후에는, 다음과 같이 입력 값을 넘겨주는 방식으로 사용이 가능합니다. 자세한 사용방법은 [examples](https://github.com/leewaay/ragcar/tree/main/examples)에서 각 Task 예제를 참고해주세요.
 
 ```python
 >>> generator(input="대한민국")
@@ -116,7 +116,7 @@ export OPENAI_API_KEY='sk-...'
 
 <br>
 
-- 보다 상세한 활용 방법은 [examples]()을 확인해 주세요!
+- 보다 상세한 활용 방법은 [examples](https://github.com/leewaay/ragcar/tree/main/examples)를 확인해 주세요!
 
 <br>
 
@@ -140,7 +140,7 @@ export OPENAI_API_KEY='sk-...'
 
 ### ⚠️ 구글 드라이브 모델 업로드 방법
 
-[sentence_embedding example]() 확인
+[sentence_embedding example](https://github.com/leewaay/ragcar/blob/main/examples/sentence_embedding.ipynb) 확인
 
 <br>
 
