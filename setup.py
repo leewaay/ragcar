@@ -15,7 +15,6 @@ setup(
         'dataclasses_json',
         'python-dotenv',
         'tqdm',
-        'pandas',
         'gdown',
         'tiktoken',
         'kiwipiepy',
