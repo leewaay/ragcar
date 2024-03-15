@@ -21,9 +21,9 @@ setup(
         'kiwipiepy',
         'elasticsearch==7.13.1',
         'aiohttp',
-        'sentence-transformers==2.4.0',
+        'sentence-transformers>=2.4.0',
         'openai==0.28.1',
-        'pytorch-lightning==1.1.0',
-        'fsspec==2021.4.0'
+        'pytorch-lightning',
+        'fsspec'
     ],
 )
