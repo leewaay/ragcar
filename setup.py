@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ragcar', 
-    version='0.1.0', 
+    version='0.1.1', 
     url='https://github.com/leewaay/ragcar.git', 
     author='Wonseok Lee', 
     author_email='wonsuklee7020@gmail.com', 
