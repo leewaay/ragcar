@@ -47,7 +47,6 @@ pip install -e .
 - Task 별로 어떠한 모델이 지원되는지 확인하기 위해서는 아래 과정을 거치시면 됩니다.
 
 ```python
->>> from ragcar import Ragcar
 >>> Ragcar.available_models("text_generation")
 'Available models for text_generation are ([src]: openai, [model]: gpt-4-turbo-preview, gpt-4, gpt-3.5-turbo, MODELS_SUPPORTED(https://platform.openai.com/docs/models)), ([src]: clova, [model]: YOUR_MODEL(https://www.ncloud.com/product/aiService/clovaStudio))'
 ```
@@ -57,11 +56,10 @@ pip install -e .
 - 특정 Task를 수행하고자 하실 때에는, `tool` 인자에 앞서 살펴본 **도구명**과 `src` 인자에 **모델 종류**를 넣어주시면 됩니다.
 
 ```python
->>> from ragcar import Ragcar
 >>> from ragcar.utils import PromptTemplate
 >>> prompt_template = PromptTemplate("사용자: {input} 수도는?\nAI:")
 
->>> generator = Ragcar(tool="text_generation", src="openai", prompt_template=prompt_template)
+>>> generator = Ragcar(tool="text_generation", src="openai", prompt_template=prompt_template, formatting=True)
 ```
 
 <br>
@@ -70,7 +68,17 @@ pip install -e .
 
 ```python
 >>> generator(input="대한민국")
-'대한한국의 수도는 서울특별시입니다.'
+{
+    'id': 'openai-dad4969f-6f0d-4413-a748-26d05cc0e73d', 
+    'model': 'gpt-4-turbo-preview', 
+    'content': '대한민국의 수도는 서울입니다.', 
+    'finish_reason': 'stop', 
+    'input_tokens': 23, 
+    'output_tokens': 15, 
+    'total_tokens': 38, 
+    'predicted_cost': 0.0015899999999999998, 
+    'response_time': 1.0608701705932617
+}
 ```
 
 <br>
@@ -110,8 +118,22 @@ export OPENAI_API_KEY='sk-...'
         "api_key": "YOUR_APIGW-API-KEY",
         "app_key": "YOUR_CLOVASTUDIO-API-KEY"
     }, 
-    prompt_template=prompt_template
+    prompt_template=prompt_template, 
+    formatting=True
 )
+>>> generator(input="대한민국")
+{
+    'id': 'clova-3c241fa1-f01e-4738-b208-5bcb35daad42',
+    'model': 'HCX-003',
+    'content': '대한민국 수도는 서울입니다.',
+    'finish_reason': 'stop_before',
+    'input_tokens': 12,
+    'output_tokens': 8,
+    'total_tokens': 20,
+    'predicted_cost': 0.6,
+    'response_time': 0.7090704441070557,
+    'ai_filter': []
+ }
 ```
 
 <br>
@@ -120,15 +142,19 @@ export OPENAI_API_KEY='sk-...'
 
 <br>
 
-### ⚠️ Clova `src` 사용 시 주의사항
+### ⚠️ text_generation `Tool` 사용 시 주의사항
 
-**text_generation** `tool`을 **clova** `src`와 함께 사용할 때, 공식 Parameter 대비 변경된 사항에 주의해야 합니다:
+#### 1. `predicted_cost`에 대한 주의사항
+
+**text_generation** 도구를 사용할 때 `predicted_cost`는 사용한 API에 따라 다르게 계산됩니다. OpenAI의 경우 `predicted_cost`는 **달러(USD)** 로 계산되며, CLOVA는 **원화(KRW)** 로 계산됩니다. 이는 각 서비스의 과금 체계가 다르기 때문입니다. 현재 적용되는 모델에 따른 구체적인 과금 정보는 [base.py](https://github.com/leewaay/ragcar/blob/main/ragcar/models/base.py) 파일에서 확인할 수 있습니다.
+
+#### 2. Clova `src` 사용 시 주의사항
+
+**text_generation** `tool`을 **clova** `src`와 함께 사용할 때, 몇 가지 공식 Parameter 대비 변경된 사항에 주의해야 합니다:
 
 - **파라미터 명 변경**:
-  - `top_k` 대신 `presence_penalty`를 사용해주세요.
-  - `repeat_penalty` 대신 `frequency_penalty`를 사용해주세요.
-
-<br>
+  - `top_k` 대신 `presence_penalty`를 사용해 주세요.
+  - `repeat_penalty` 대신 `frequency_penalty`를 사용해 주세요.
 
 - **파라미터 값 범위**:
   - `0.0 < temperature < 1.0`
