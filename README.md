@@ -148,9 +148,9 @@ export OPENAI_API_KEY='sk-...'
 
 **text_generation** 도구를 사용할 때 `predicted_cost`는 사용한 API에 따라 다르게 계산됩니다. OpenAI의 경우 `predicted_cost`는 **달러(USD)** 로 계산되며, CLOVA는 **원화(KRW)** 로 계산됩니다. 이는 각 서비스의 과금 체계가 다르기 때문입니다. 현재 적용되는 모델에 따른 구체적인 과금 정보는 [base.py](https://github.com/leewaay/ragcar/blob/main/ragcar/models/base.py) 파일에서 확인할 수 있습니다.
 
-#### 2. Clova `src` 사용 시 주의사항
+#### 2. 네이버 하이퍼클로바 사용 시 주의사항
 
-**text_generation** `tool`을 **clova** `src`와 함께 사용할 때, 몇 가지 공식 Parameter 대비 변경된 사항에 주의해야 합니다:
+**text_generation** `tool`을 **clova** `src`와 함께 사용할 때, 몇 가지 [공식 Parameter](https://guide.ncloud-docs.com/docs/clovastudio-info#%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0) 대비 변경된 사항에 주의해야 합니다:
 
 - **파라미터 명 변경**:
   - `top_k` 대신 `presence_penalty`를 사용해 주세요.
