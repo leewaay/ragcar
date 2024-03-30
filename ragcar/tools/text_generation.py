@@ -57,6 +57,7 @@ class RagcarTextGenerationFactory(RagcarFactoryBase):
         frequency_penalty: float=0., 
         presence_penalty: float=2.0,
         stop_before: Optional[list] = None,
+        response_format: Optional[str] = None,
         functions: Optional[list] = None,
         stream: Optional[bool] = False, 
         use_async: Optional[bool] = False,
@@ -70,6 +71,7 @@ class RagcarTextGenerationFactory(RagcarFactoryBase):
         self.frequency_penalty = 0.1 if src == 'clova' else frequency_penalty
         self.presence_penalty  = int(presence_penalty) if src == 'clova' else presence_penalty
         self.stop_before = stop_before
+        self.response_format = response_format
         self.functions = functions
         self.stream = stream
         self.use_async = use_async
@@ -129,6 +131,7 @@ class RagcarTextGenerationFactory(RagcarFactoryBase):
                     self.formatting
                 )
                 
+                params["response_format"] = self.response_format
                 params["functions"] = self.functions
                 
                 if self.use_async:

@@ -88,7 +88,8 @@ class OpenaiChatCompletion(OpenaiBase):
         frequency_penalty: float, 
         presence_penalty: float, 
         stop_before: Optional[list] = None, 
-        functions: Optional[list] = None,
+        response_format: Optional[str] = None, 
+        functions: Optional[list] = None, 
         stream: Optional[bool] = None
     ) -> Dict[str, Union[str, int, float]]:
         params = {
@@ -99,6 +100,7 @@ class OpenaiChatCompletion(OpenaiBase):
             "frequency_penalty": frequency_penalty,
             "presence_penalty": presence_penalty,
             "stop": stop_before,
+            "response_format": {"type": response_format},
             "functions": functions,
             "stream": stream
         }
