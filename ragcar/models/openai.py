@@ -113,9 +113,11 @@ class OpenaiChatCompletion(OpenaiBase):
         request_id,
         start_time
     ) -> Dict[str, Union[str, int, float]]:
+        res["id"] = request_id
+        
         if self.formatting:
             response_time = time.time() - start_time
-            formatted_data = self.format_response(res, request_id, response_time)
+            formatted_data = self.format_response(res, response_time)
         
             logger.info(json.dumps(res, ensure_ascii=False, indent=4))
             return formatted_data
@@ -132,6 +134,8 @@ class OpenaiChatCompletion(OpenaiBase):
     ) -> Generator[str, None, None]:
         message = ""
         for chunk in res:
+            chunk["id"] = request_id
+            
             if self.formatting:
                 logger.info(json.dumps(chunk, ensure_ascii=False, indent=4))
                 
@@ -179,7 +183,7 @@ class OpenaiChatCompletion(OpenaiBase):
                     yield {
                         "id": request_id,
                         "event": "finish",
-                        "data": self.format_response(default_format, request_id, response_time)
+                        "data": self.format_response(default_format, response_time)
                     }
             else:
                 chunk["id"] = request_id
@@ -210,6 +214,8 @@ class OpenaiChatCompletion(OpenaiBase):
     ) -> AsyncGenerator[str, None]:
         message = ""
         async for chunk in res:
+            chunk["id"] = request_id
+            
             if self.formatting:
                 logger.info(json.dumps(chunk, ensure_ascii=False, indent=4))
                 
@@ -257,7 +263,7 @@ class OpenaiChatCompletion(OpenaiBase):
                     yield {
                         "id": request_id,
                         "event": "finish",
-                        "data": self.format_response(default_format, request_id, response_time)
+                        "data": self.format_response(default_format, response_time)
                     }
             else:
                 chunk["id"] = request_id
@@ -338,9 +344,11 @@ class OpenaiCompletion(OpenaiBase):
         request_id,
         start_time
     ) -> Dict[str, Union[str, int, float]]:
+        res["id"] = request_id
+        
         if self.formatting:
             response_time = time.time() - start_time
-            formatted_data = self.format_response(res, request_id, response_time)
+            formatted_data = self.format_response(res, response_time)
         
             logger.info(json.dumps(res, ensure_ascii=False, indent=4))
             return formatted_data
@@ -356,6 +364,8 @@ class OpenaiCompletion(OpenaiBase):
     ) -> Generator[str, None, None]:
         message = ""
         for chunk in res:
+            chunk["id"] = request_id
+            
             if self.formatting:
                 logger.info(json.dumps(chunk, ensure_ascii=False, indent=4))
                 
@@ -394,7 +404,7 @@ class OpenaiCompletion(OpenaiBase):
                     yield {
                         "id": request_id,
                         "event": "finish",
-                        "data": self.format_response(default_format, request_id, response_time)
+                        "data": self.format_response(default_format, response_time)
                     }
             else:
                 chunk["id"] = request_id
@@ -411,9 +421,17 @@ class OpenaiCompletion(OpenaiBase):
         
         return self._output(res, request_id, start_time)
 
-    async def _astream_output(self, res, request_id) -> AsyncGenerator[str, None]:
+    async def _astream_output(
+        self, 
+        res, 
+        request_id, 
+        start_time,
+        prompt
+    ) -> AsyncGenerator[str, None]:
         message = ""
         async for chunk in res:
+            chunk["id"] = request_id
+            
             if self.formatting:
                 logger.info(json.dumps(chunk, ensure_ascii=False, indent=4))
                 
@@ -452,7 +470,7 @@ class OpenaiCompletion(OpenaiBase):
                     yield {
                         "id": request_id,
                         "event": "finish",
-                        "data": self.format_response(default_format, request_id, response_time)
+                        "data": self.format_response(default_format, response_time)
                     }
             else:
                 chunk["id"] = request_id
@@ -463,9 +481,8 @@ class OpenaiCompletion(OpenaiBase):
         
         start_time = time.time()
         res, request_id = await self.afetch(openai.Completion.acreate, **params)
-        response_time = time.time() - start_time
         
         if params.get('stream'):
-            return self._stream_output(res, request_id, start_time, params.get("functions"), prompt)
+            return self._astream_output(res, request_id, start_time, params.get("functions"), prompt)
         
         return self._output(res, request_id, start_time)

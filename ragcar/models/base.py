@@ -109,7 +109,6 @@ class ClovaBase:
     def format_response(
         self, 
         response_data,
-        request_id: str,
         response_time: float
     ) -> Dict[str, Union[str, int, float, Dict]]:
         """
@@ -117,7 +116,6 @@ class ClovaBase:
 
         Args:
             response_data (Dict): The raw response from the API, expected to contain result details.
-            request_id (str): The unique identifier of the request.
             response_time (float): The time (in seconds) it took to get the response from the API.
 
         Returns:
@@ -150,10 +148,10 @@ class ClovaBase:
         if ai_filter:
             ai_filter = {item['name']: int(item['score']) for item in ai_filter}
         
-        formatted_data = {
-            "id": request_id,
-            "model": self.model_n,
+        formatted_data = response_data.get('id', {})
+        formatted_data.update({
             "content": content,
+            "model": self.model_n,
             "finish_reason": finish_reason,
             "input_tokens": input_tokens,
             "output_tokens": output_tokens,
@@ -161,7 +159,7 @@ class ClovaBase:
             "predicted_cost": predicted_cost if predicted_cost is not None else "Unknown",
             "response_time": response_time,
             "ai_filter": ai_filter
-        }
+        })
             
         return formatted_data
     
@@ -395,7 +393,6 @@ class OpenaiBase:
     def format_response(
         self,
         response_data,
-        request_id: str,
         response_time: float
     ) -> Dict[str, Union[str, int, float]]:
         """
@@ -403,7 +400,6 @@ class OpenaiBase:
 
         Args:
             response_data (dict): The raw response data from the API.
-            request_id (str): The unique identifier for the request.
             response_time (float): The duration it took to receive the response, in seconds.
 
         Returns:
@@ -437,8 +433,8 @@ class OpenaiBase:
         
         predicted_cost = self._calculate_charge_per_request(model_type, input_tokens, output_tokens)
         
-        formatted_data = {
-            "id": request_id,
+        formatted_data = {"id": response_data.get('id')} if  response_data.get('id') else {}
+        formatted_data.update({
             "model": self.model_n,
             "content": content,
             "finish_reason": finish_reason,
@@ -447,7 +443,7 @@ class OpenaiBase:
             "total_tokens": total_tokens,
             "predicted_cost": predicted_cost if predicted_cost is not None else "Unknown",
             "response_time": response_time
-        }
+        })
             
         return formatted_data
 

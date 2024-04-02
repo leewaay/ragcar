@@ -245,9 +245,11 @@ class ClovaChatCompletion(ClovaBase):
         request_id,
         start_time
     ) -> Dict[str, Union[str, int, float]]:
+        res["id"] = request_id
+        
         if self.formatting:
             response_time = time.time() - start_time
-            formatted_data = self.format_response(res, request_id, response_time)
+            formatted_data = self.format_response(res, response_time)
             
             logger.info(json.dumps(res, ensure_ascii=False, indent=4))
             return formatted_data
@@ -297,7 +299,7 @@ class ClovaChatCompletion(ClovaBase):
                             yield {
                                     "id": request_id,
                                     "event": "finish",
-                                    "data": self.format_response(default_format, request_id, response_time)
+                                    "data": self.format_response(default_format, response_time)
                                 }
                     else:
                         yield current_event
@@ -358,7 +360,7 @@ class ClovaChatCompletion(ClovaBase):
                             yield {
                                     "id": request_id,
                                     "event": "finish",
-                                    "data": self.format_response(default_format, request_id, response_time)
+                                    "data": self.format_response(default_format, response_time)
                                 }
                     else:
                         yield current_event
