@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ragcar', 
-    version='0.1.3', 
+    version='0.1.4', 
     url='https://github.com/leewaay/ragcar.git', 
     author='Wonseok Lee', 
     author_email='wonsuklee7020@gmail.com', 
@@ -10,7 +10,7 @@ setup(
     packages=find_packages(), 
     python_requires='>=3.8',
     install_requires=[
-        'torch==2.0.1',
+        'torch>=2.1.2',
         'python-dateutil',
         'dataclasses_json',
         'python-dotenv',
