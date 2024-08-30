@@ -2,7 +2,6 @@ import logging
 import json
 import uuid
 from typing import Optional, Union, Tuple, Generator, AsyncGenerator, Dict
-from decimal import Decimal, getcontext
 import requests
 import aiohttp
 import openai
