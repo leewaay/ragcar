@@ -278,6 +278,14 @@ class OpenaiBase:
     # Define the cost per token for each model outside the function
     # https://openai.com/pricing
     COST_PER_TOKEN = {
+        'gpt-4o': {
+            'input': 0.005 / 1000,
+            'output': 0.0015 / 1000
+        },
+        'gpt-4o-mini': {
+            'input': 0.00015 / 1000,
+            'output': 0.0006 / 1000
+        },
         'gpt-4-base': {
             'input': 0.03 / 1000,
             'output': 0.06 / 1000
@@ -347,6 +355,11 @@ class OpenaiBase:
                 return 'gpt-3.5-turbo-tuning'
             else:
                 return 'gpt-3.5'
+        elif 'gpt-4o' in model_n:
+            if 'mini' in model_n:
+                return 'gpt-4o-mini'
+            else:
+                return 'gpt-4o'
         elif 'gpt-4' in model_n:
             if '32k' in model_n:
                 return 'gpt-4-large'
@@ -378,7 +391,7 @@ class OpenaiBase:
         if model_type not in self.COST_PER_TOKEN:
             return None
 
-        total_cost_in_usd = 0
+        total_cost_in_usd = 0.0
 
         if input_tokens:
             cost_per_input_token = self.COST_PER_TOKEN[model_type]['input']
@@ -388,7 +401,7 @@ class OpenaiBase:
             cost_per_output_token = self.COST_PER_TOKEN[model_type]['output']
             total_cost_in_usd += output_tokens * cost_per_output_token
 
-        return total_cost_in_usd
+        return round(total_cost_in_usd,6)
 
     def format_response(
         self,
