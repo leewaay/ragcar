@@ -88,7 +88,7 @@ class OpenaiChatCompletion(OpenaiBase):
         frequency_penalty: float, 
         presence_penalty: float, 
         stop_before: Optional[list] = None, 
-        response_format: Optional[str] = "text", 
+        response_format: Optional[str] = None, 
         functions: Optional[list] = None, 
         stream: Optional[bool] = None
     ) -> Dict[str, Union[str, int, float]]:
