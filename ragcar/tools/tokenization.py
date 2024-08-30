@@ -75,6 +75,7 @@ class RagcarTokenizationFactory(RagcarFactoryBase):
                 "MODELS_SUPPORTED(https://huggingface.co/models?library=transformers)"
             ],
             "tiktoken": [
+                "o200k_base",
                 "cl100k_base",
                 "p50k_base",
                 "r50k_base",
@@ -82,6 +83,8 @@ class RagcarTokenizationFactory(RagcarFactoryBase):
                 "MODELS_SUPPORTED(https://github.com/openai/tiktoken/blob/main/tiktoken/model.py)"
             ],
             "openai": [
+                "gpt-4o",
+                "gpt-4o-mini",
                 "gpt-4-turbo",
                 "gpt-4",
                 "gpt-3.5-turbo",
