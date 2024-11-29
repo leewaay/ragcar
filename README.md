@@ -176,14 +176,6 @@ export OPENAI_API_KEY='sk-...'
 
 <br>
 
-## Contributors
-
-[이원석](https://github.com/leewaay)
-
-[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api/badge?name=otoo)](https://velog.io/@otoo)
-
-<br>
-
 ## Acknowledgements 
 
 * [pororo](https://github.com/kakaobrain/pororo)
